@@ -1,5 +1,5 @@
 import { Container } from ".";
-import { NodeContainerType, MemoryAccessor } from "./types";
+import type { NodeContainerType, MemoryAccessor } from "./types";
 
 export class MemoryNode<
     T = {},
