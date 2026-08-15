@@ -1,12 +1,14 @@
 export class Container<K = any, V = any> {
     private store = new Map<K, V>();
 
-    add<T extends V = V>(key: K, value: T): void {
+    add<T extends V = V>(key: K, value: T): T | undefined {
         this.store.set(key, value);
+        return this.get(key);
     }
 
-    set<T extends V = V>(key: K, value: T): void {
+    set<T extends V = V>(key: K, value: T): T | undefined {
         this.store.set(key, value);
+        return this.get(key);
     }
 
     get<T extends V = V>(key: K): T | undefined {
