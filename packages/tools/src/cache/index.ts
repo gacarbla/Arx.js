@@ -9,3 +9,5 @@ export const cache = {
     Memory,
     Container
 }
+
+export default Memory
