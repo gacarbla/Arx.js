@@ -5,7 +5,7 @@ export { Memory }
 export { Container }
 export type { NodeContainerType, MemoryAccessor } from "./types";
 
-export const cache = {
+export const CACHE = {
     Memory,
     Container
 }

@@ -1,7 +1,9 @@
-import { cache } from "./cache";
+import { CACHE, Memory, Container } from "./cache";
+import { FileManager } from "./files"
 
-export { cache }
+export { CACHE, FileManager, Memory, Container }
 
 export const TOOLS = {
-    cache
+    CACHE,
+    FileManager
 }
