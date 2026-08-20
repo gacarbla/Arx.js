@@ -1,13 +1,20 @@
 {
-  "name": "arx.js-monorepo",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@arx.js/main",
+  "version": "1.0.0-alpha.0",
+  "private": false,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:core": "npm run build --workspace=@arx.js/core",
+    "build:tools": "npm run build --workspace=@arx.js/tools",
+    "build": "npm run build:core && npm run build:tools"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module"
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "rimraf": "^5.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2"
+  }
 }
