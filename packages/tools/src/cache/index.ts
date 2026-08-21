@@ -1,5 +1,6 @@
 import { Container } from "./container";
 import { Memory } from "./memory";
+import "./config"
 
 export { Memory }
 export { Container }
