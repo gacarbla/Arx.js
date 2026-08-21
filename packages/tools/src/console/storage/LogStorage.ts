@@ -11,31 +11,31 @@ export class LogStorage {
 
     private config = config.current
 
-    constructor(private console: Console) {}
-
-    public async changeTracker() {
-        this.updateName()
-        if (!this.fileName) throw Error("No fue posible actualizar el nombre del archivo de LogStorage")
-        await this.updateFilePath();
-        config.onChange( async (newConfig) => {
-            this.config = newConfig
-            await this.changeTracker()
+    constructor(private console: Console) {
+        config.onChange(async (newConfig) => {
+            this.config = newConfig;
+            await this.updateStorageConfig();
         });
     }
 
+    public async updateStorageConfig() {
+        this.updateName();
+        if (!this.fileName) throw Error("No fue posible actualizar el nombre del archivo de LogStorage");
+        await this.updateFilePath();
+    }
+
     private updateName() {
-        var old_name = `${this.fileName}`
+        const old_name = `${this.fileName}`;
         this.fileName = this.config.logs.singleFile
             ? "console.log"
             : formatDate(this.config.logFile.filenameTemplate);
-        if (old_name == this.fileName) {
-            this.console.warn("Recuerda utilizar un nombre irrepetible para el archivo de logs.", {colorizeLine: true, bold: true})
-            this.console.warn("Solución recomendada: Incluír hora, minuto, segundo y fecha completa en el nombre del log.")
+        if (old_name === this.fileName && old_name !== "undefined") {
+            process.stderr.write("[LOGSTORAGE WARN] Recuerda utilizar un nombre irrepetible para el archivo de logs.\n");
         }
     }
 
     private async updateFilePath() {
-        if (!this.fileName) throw Error("El nombre del archivo de LogStorage no está declarado")
+        if (!this.fileName) throw Error("El nombre del archivo de LogStorage no está declarado");
         const targetDir = path.resolve(this.config.logFile.directory);
         await fs.mkdir(targetDir, { recursive: true });
         this.filePath = path.join(targetDir, this.fileName);
