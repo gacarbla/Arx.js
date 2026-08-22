@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import config from "../config";
 import { Console } from "../console";
+import { Formatter } from "../../format/index";
 
 export class LogStorage {
     private currentLinesCount = 0;
@@ -28,7 +29,7 @@ export class LogStorage {
         const old_name = `${this.fileName}`;
         this.fileName = this.config.logs.singleFile
             ? "console.log"
-            : formatDate(this.config.logFile.filenameTemplate);
+            : Formatter.dates("template", this.config.logFile.filenameTemplate);
         if (old_name === this.fileName && old_name !== "undefined") {
             process.stderr.write("[LOGSTORAGE WARN] Recuerda utilizar un nombre irrepetible para el archivo de logs.\n");
         }
@@ -112,27 +113,4 @@ export class LogStorage {
         await fs.mkdir(path.dirname(absolutePath), { recursive: true });
         await fs.writeFile(absolutePath, buffer.join("\n"), "utf-8");
     }
-}
-
-function formatDate(text: string, date: Date = new Date()): string {
-    const
-        Y = date.getFullYear(),
-        M = date.getMonth() + 1,
-        D = date.getDate(),
-        h = date.getHours(),
-        m = date.getMinutes(),
-        s = date.getSeconds()
-    return text
-        .replace("{YYYY}", String(Y))
-        .replace("{YY}", String(Y).slice(2, 4))
-        .replace("{MM}", String(M).padStart(2, "0"))
-        .replace("{M}", String(M))
-        .replace("{DD}", String(D).padStart(2, "0"))
-        .replace("{D}", String(D))
-        .replace("{hh}", String(h).padStart(2, "0"))
-        .replace("{h}", String(h))
-        .replace("{mm}", String(m).padStart(2, "0"))
-        .replace("{m}", String(m))
-        .replace("{ss}", String(s).padStart(2, "0"))
-        .replace("{s}", String(s))
 }
