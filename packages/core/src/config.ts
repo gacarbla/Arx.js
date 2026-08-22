@@ -8,7 +8,7 @@ declare module "./configBuilder/types" {
 }
 
 const GeneralSchema = z.object({
-    defaultLanguage: z.string().default("es-ES"),
+    defaultLanguage: z.string().default("en-GB"),
     debug: z.boolean().optional().default(false),
 });
 
