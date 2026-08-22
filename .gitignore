@@ -1,4 +1,15 @@
+# NODE.JS
+package-lock.json
+
+# TYPESCRIPT
+*.tsbuildinfo
+
+# LIBRERÍAS
 node_modules
+
+# BUILDS
 dist
 build
-package-lock.json
+
+# DECLARACIONES PRIVADAS
+.env
