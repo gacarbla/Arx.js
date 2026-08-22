@@ -3,10 +3,11 @@ import { ScreenManager } from "./ui/ScreenManager";
 import { LogViewer } from "./ui/LogViewer";
 import { PromptManager } from "./ui/Prompts";
 import { LogStorage } from "./storage/LogStorage";
-import { DateFormatter } from "./i18n/DateFormatter";
+import { Formatter } from "../format/index";
 import { LogFormatter } from "./ui/LogFormatter";
 import { CallerResolver, type CallerInfo } from "./utils/callerResolver";
 import type { LogOptions } from "./types/logger";
+import config from "./config";
 
 export interface ConsoleEvents {
     log: (message: string, caller: CallerInfo) => void;
@@ -22,6 +23,7 @@ export class Console extends EventEmitter {
     private promptManager: PromptManager;
     private storage: LogStorage;
     private historyBuffer: string[] = [];
+    private config = config.current
 
     public input: {
         text: (label: string) => Promise<string>;
@@ -53,6 +55,8 @@ export class Console extends EventEmitter {
         };
 
         this.screenManager.render();
+
+        config.onChange((newConfig) => this.config = newConfig)
     }
 
     private write(
@@ -62,7 +66,7 @@ export class Console extends EventEmitter {
         options: LogOptions = {}
     ): void {
         const caller = CallerResolver.getCaller();
-        const timestamp = DateFormatter.format();
+        const timestamp = Formatter.dates("template", this.config.dateFormat);
         const message = LogFormatter.formatArgs(args);
 
         const styledLog = LogFormatter.applyTags(timestamp, level, color, message, options);
