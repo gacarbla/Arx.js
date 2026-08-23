@@ -39,7 +39,7 @@ export const ConsoleConfigSchema = z.object({
             maxFiles: z.coerce.number().min(0).default(0),
             maxLines: z.coerce.number().min(0).default(0),
             splitAtLine: z.coerce.number().min(0).default(0),
-            filenameTemplate: z.string().default("console-{{YYYY}}-{{MM}}-{{DD}}.log"),
+            filenameTemplate: z.string().default("{YYYY}-{MM}-{DD}_{hh}-{mm}-{ss}.log"),
             keepFilename: z.boolean().default(true),
             keepFilepath: z.boolean().default(true)
         })
