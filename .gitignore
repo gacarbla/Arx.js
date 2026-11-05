@@ -1,5 +1,5 @@
 # NODE.JS
-package-lock.json
+# El lockfile se versiona: CI usa `npm ci` y las builds deben ser reproducibles.
 
 # TYPESCRIPT
 *.tsbuildinfo
@@ -10,6 +10,9 @@ node_modules
 # BUILDS
 dist
 build
+
+# TESTS
+coverage
 
 # DECLARACIONES PRIVADAS
 .env

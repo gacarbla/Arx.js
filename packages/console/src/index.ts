@@ -2,6 +2,7 @@ import { Console as ARXConsole } from "@arx.js/tools"
 import ini from "ini"
 import fs from "fs"
 import path from "path"
+import "./config"
 
 export interface ConsoleConfig {
     enabled: boolean

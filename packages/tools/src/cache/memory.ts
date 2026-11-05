@@ -58,7 +58,6 @@ export class MemoryNode<
 export type Memory<T> = MemoryAccessor<T>;
 
 export interface MemoryConstructor {
-    // Permite instanciar con o sin `new`
     new <T>(setup: (m: MemoryNode<{}, string, any>) => MemoryNode<T, string, any>): Memory<T>;
     new <T>(setup: (m: MemoryNode<{}, string, any>) => void): Memory<T>;
     <T>(setup: (m: MemoryNode<{}, string, any>) => MemoryNode<T, string, any>): Memory<T>;

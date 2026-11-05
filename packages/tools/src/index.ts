@@ -10,6 +10,8 @@ export {
     CONSOLE, Console
 }
 
+export type { MemoryAccessor, NodeContainerType } from "./cache"
+
 export const TOOLS = {
     CACHE,
     FILES,

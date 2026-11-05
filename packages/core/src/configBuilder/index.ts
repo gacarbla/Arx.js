@@ -5,12 +5,12 @@ import { z } from "zod";
 import type {
     ModuleConfigDefinition,
     GlobalArxConfig,
-    ArxConfigRegistry,
     ConfigWatchCallback,
     ConfigErrorCallback,
     LoadOptions,
     ReactiveConfig
 } from "./types";
+import type { ArxConfigRegistry } from "../registry";
 
 // TODO: Comentar correctamente el funcionamiento y utilidad de cada método y función
 
@@ -214,17 +214,47 @@ export class Config {
     private static checkUnregisteredSections(parsedData: any, currentPath = ""): void {
         if (!parsedData || typeof parsedData !== "object") return;
 
+        const registryKeys = Array.from(this.registry.keys());
+
         for (const key of Object.keys(parsedData)) {
             const fullPath = currentPath ? `${currentPath}/${key.toUpperCase()}` : key.toUpperCase();
+            const isKnown = registryKeys.some(
+                (regKey) =>
+                    regKey === fullPath ||
+                    regKey.startsWith(`${fullPath}/`) ||
+                    fullPath.startsWith(`${regKey}/`)
+            );
 
-            if (!Array.from(this.registry.keys()).some((regKey) => regKey.startsWith(fullPath))) {
+            if (!isKnown) {
                 console.warn(`[Config Warning] Se encontró la sección unassigned [${fullPath}] sin esquema registrado.`);
             }
         }
     }
 
+    /**
+     * Reads a section from the parsed configuration.
+     *
+     * Two shapes are supported on purpose:
+     * - flat keys produced by the INI parser (`"TOOLS/CONSOLE"`),
+     * - nested objects produced by `assignNested` (`{ TOOLS: { CONSOLE: ... } }`).
+     *
+     * Lookups are case-insensitive so `[general]` and `[GENERAL]` behave the
+     * same way.
+     */
     private static extractSection(data: any, keyPath: string): any {
-        return keyPath.split("/").reduce((acc, part) => acc?.[part], data);
+        if (!data || typeof data !== "object") return undefined;
+
+        const flatKey = Object.keys(data).find((key) => key.toUpperCase() === keyPath.toUpperCase());
+        if (flatKey !== undefined) {
+            return data[flatKey];
+        }
+
+        return keyPath.split("/").reduce((acc, part) => {
+            if (!acc || typeof acc !== "object") return undefined;
+
+            const key = Object.keys(acc).find((candidate) => candidate.toUpperCase() === part.toUpperCase());
+            return key === undefined ? undefined : acc[key];
+        }, data);
     }
 
     private static assignNested(target: Record<string, any>, keyPath: string, value: any): void {
