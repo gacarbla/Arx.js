@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish npm packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          TAG=$(node -p "require('./packages/core/package.json').version.includes('-') ? 'alpha' : 'latest'")
+          echo "Publishing with npm tag: $TAG"
+          npm publish --workspace=@arx.js/core --tag "$TAG" --access public
+          npm publish --workspace=@arx.js/tools --tag "$TAG" --access public
+          npm publish --workspace=@arx.js/console --tag "$TAG" --access public
+          npm publish --workspace=@arx.js/discord --tag "$TAG" --access public
+          npm publish --workspace=@arx.js/discord.js --tag "$TAG" --access public
