@@ -1,4 +1,14 @@
 import { Config } from "./configBuilder";
-export type { ReactiveConfig } from "./configBuilder/types";
+import { coreConfig } from "./config";
 
-export { Config };
+export type { ArxConfigRegistry } from "./registry";
+export type {
+    ConfigErrorCallback,
+    ConfigWatchCallback,
+    GlobalArxConfig,
+    LoadOptions,
+    ModuleConfigDefinition,
+    ReactiveConfig,
+} from "./configBuilder/types";
+
+export { Config, coreConfig };
