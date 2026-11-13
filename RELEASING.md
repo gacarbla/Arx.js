@@ -38,6 +38,20 @@ npm publish --dry-run --tag alpha --workspace=@arx.js/discord
 npm publish --dry-run --tag alpha --workspace=@arx.js/discord.js
 ```
 
+## Publicación desde GitHub
+
+El workflow `.github/workflows/release.yml` se ejecuta al empujar una etiqueta
+`v*`. Requiere el secret `NPM_TOKEN` con permiso de publicación sobre el scope
+`@arx.js`.
+
+```bash
+git tag -a v1.0.0-alpha.2 -m "Arx.js 1.0.0-alpha.2"
+git push origin v1.0.0-alpha.2
+```
+
+El workflow construye, prueba y publica los cinco paquetes en orden de
+dependencias con el tag `alpha` (o `latest` para una versión estable).
+
 ## Requisitos de paquete
 
 - `files: ["dist"]` y `exports` correctos.
