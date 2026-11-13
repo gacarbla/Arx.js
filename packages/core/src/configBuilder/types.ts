@@ -1,6 +1,5 @@
 import { z } from "zod";
-
-export interface ArxConfigRegistry { }
+import type { ArxConfigRegistry } from "../registry";
 
 export type GlobalArxConfig = {
     [K in keyof ArxConfigRegistry]: ArxConfigRegistry[K] extends z.ZodType

@@ -1,6 +1,6 @@
 {
   "name": "@arx.js/tools",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -18,13 +18,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts src/console/index.ts --format esm --clean && tsc --emitDeclarationOnly"
+    "build": "tsup src/index.ts src/console/index.ts --format esm --clean && tsc --emitDeclarationOnly",
+    "typecheck": "tsc --noEmit"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@arx.js/core": "*",
+    "@arx.js/core": "1.0.0-alpha.2",
     "blessed": "^0.1.81",
     "zod": "^4.4.3"
   },

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { Config } from "./configBuilder";
 
-declare module "./configBuilder/types" {
+declare module "./registry" {
     interface ArxConfigRegistry {
         GENERAL: typeof GeneralSchema;
     }

@@ -1,0 +1,13 @@
+export { Structure } from "./Structure";
+export type { StructureClient } from "./Structure";
+export { User } from "./User";
+export { Guild } from "./Guild";
+export { Channel } from "./Channel";
+export { Member } from "./Member";
+export { Role } from "./Role";
+export { Message } from "./Message";
+export { MessageManager } from "./managers/MessageManager";
+export type { SendMessageOptions } from "./managers/MessageManager";
+export { GuildMemberManager } from "./managers/GuildMemberManager";
+export { GuildChannelManager } from "./managers/GuildChannelManager";
+export { GuildRoleManager } from "./managers/GuildRoleManager";

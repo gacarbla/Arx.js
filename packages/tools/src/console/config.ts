@@ -4,18 +4,24 @@ import { z } from "zod";
 export const ConsoleConfigSchema = z.object({
     language: z.enum(["es", "en", "gl", "pt"]).default("es"),
     theme: z.enum(["default", "dracula", "matrix", "nord"]).default("default"),
-    timeFormat: z.enum(["hh:mm", "hh:mm:ss"]).default("hh:mm:ss"),
+    timeFormat: z.enum(["{hh}:{mm}", "{hh}:{mm}:{ss}"]).default("{hh}:{mm}:{ss}"),
     dateFormat: z
         .enum([
             "none",
-            "dd/mm",
-            "mm/dd",
-            "dd/mm/yy",
-            "dd/mm/yyyy",
-            "mm/dd/yy",
-            "mm/dd/yyyy",
+            "{D}/{M}",
+            "{M}/{D}",
+            "{DD}/{MM}",
+            "{MM}/{DD}",
+            "{D}/{M}/{YY}",
+            "{M}/{D}/{YY}",
+            "{D}/{M}/{YYYY}",
+            "{M}/{D}/{YYYY}",
+            "{DD}/{MM}/{YY}",
+            "{MM}/{DD}/{YY}",
+            "{DD}/{MM}/{YYYY}",
+            "{MM}/{DD}/{YYYY}",
         ])
-        .default("dd/mm/yyyy"),
+        .default("{DD}/{MM}"),
 
     logs: z
         .object({
@@ -33,7 +39,7 @@ export const ConsoleConfigSchema = z.object({
             maxFiles: z.coerce.number().min(0).default(0),
             maxLines: z.coerce.number().min(0).default(0),
             splitAtLine: z.coerce.number().min(0).default(0),
-            filenameTemplate: z.string().default("console-{YYYY}-{MM}-{DD}.log"),
+            filenameTemplate: z.string().default("{YYYY}-{MM}-{DD}_{hh}-{mm}-{ss}.log"),
             keepFilename: z.boolean().default(true),
             keepFilepath: z.boolean().default(true)
         })

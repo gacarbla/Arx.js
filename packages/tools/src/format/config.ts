@@ -6,37 +6,33 @@ export const FormatConfigSchema = z.object({
         .object({
             shortDate: z
                 .enum([
-                    "D/M",
-                    "DD/MM",
-                    "M/D",
-                    "MM/DD",
-                    "D/MM/YY",
-                    "D/M/YY",
-                    "MM/DD/YY",
-                    "M/D/YY"
+                    "{D}/{M}",
+                    "{M}/{D}",
+                    "{DD}/{MM}",
+                    "{MM}/{DD}"
                 ])
-                .default("DD/MM"),
+                .default("{DD}/{MM}"),
             longDate: z
                 .enum([
-                    "DD/MM/YY",
-                    "DD/MM/YYYY",
-                    "MM/DD/YY",
-                    "MM/DD/YYYY",
-                    "D/M/YY",
-                    "D/M/YYYY",
-                    "M/D/YY",
-                    "M/D/YYYY",
+                    "{D}/{M}/{YY}",
+                    "{M}/{D}/{YY}",
+                    "{D}/{M}/{YYYY}",
+                    "{M}/{D}/{YYYY}",
+                    "{DD}/{MM}/{YY}",
+                    "{MM}/{DD}/{YY}",
+                    "{DD}/{MM}/{YYYY}",
+                    "{MM}/{DD}/{YYYY}",
                 ])
-                .default("DD/MM/YYYY"),
+                .default("{DD}/{MM}/{YY}"),
 
             time: z
                 .enum([
-                    "hh:mm",
-                    "h:m",
-                    "hh:mm:ss",
-                    "h:m:s"
+                    "{hh}:{mm}",
+                    "{h}:{m}",
+                    "{hh}:{mm}:{ss}",
+                    "{h}:{m}:{s}"
                 ])
-                .default("hh:mm:ss"),
+                .default("{hh}:{mm}:{ss}"),
 
             week: z
                 .object({

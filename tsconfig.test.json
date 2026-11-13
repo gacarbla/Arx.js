@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": false,
+    "paths": {
+      "@arx.js/core": ["./packages/core/src/index.ts"],
+      "@arx.js/tools": ["./packages/tools/src/index.ts"],
+      "@arx.js/console": ["./packages/console/src/index.ts"],
+      "@arx.js/discord": ["./packages/discord/src/index.ts"],
+      "@arx.js/discord.js": ["./packages/discord.js/src/index.ts"]
+    }
+  },
+  "include": ["tests/**/*.ts", "vitest.config.ts"]
+}

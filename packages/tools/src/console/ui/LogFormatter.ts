@@ -8,7 +8,7 @@ export class LogFormatter {
                 if (typeof arg === "string") return arg;
                 if (arg instanceof Error) return arg.stack || arg.message;
                 return util.inspect(arg, {
-                    colors: false, // Blessed manejará los colores con sus propias tags
+                    colors: false,
                     depth: null,
                     compact: true,
                     breakLength: Infinity,

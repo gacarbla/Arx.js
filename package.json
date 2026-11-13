@@ -1,7 +1,7 @@
 {
   "name": "@arx.js/main",
-  "version": "1.0.0-alpha.0",
-  "private": false,
+  "version": "1.0.0-alpha.2",
+  "private": true,
   "type": "module",
   "workspaces": [
     "packages/*"
@@ -9,12 +9,27 @@
   "scripts": {
     "build:core": "npm run build --workspace=@arx.js/core",
     "build:tools": "npm run build --workspace=@arx.js/tools",
-    "build": "npm run build:core && npm run build:tools"
+    "build:console": "npm run build --workspace=@arx.js/console",
+    "build:discord": "npm run build --workspace=@arx.js/discord",
+    "build:discord.js": "npm run build --workspace=@arx.js/discord.js",
+    "build": "npm run build:core && npm run build:tools && npm run build:console && npm run build:discord && npm run build:discord.js",
+    "typecheck": "npm run typecheck --workspaces --if-present && tsc -p tsconfig.test.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm run build && changeset publish",
+    "benchmark": "node --expose-gc benchmarks/cache-memory.mjs",
+    "live-check": "node scripts/live-check.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "@types/node": "^26.2.0",
-    "rimraf": "^5.0.0",
     "tsup": "^8.5.1",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }

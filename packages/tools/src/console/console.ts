@@ -66,7 +66,7 @@ export class Console extends EventEmitter {
         options: LogOptions = {}
     ): void {
         const caller = CallerResolver.getCaller();
-        const timestamp = Formatter.dates("template", this.config.dateFormat);
+        const timestamp = Formatter.dates("template", `${this.config.dateFormat} ${this.config.timeFormat}`);
         const message = LogFormatter.formatArgs(args);
 
         const styledLog = LogFormatter.applyTags(timestamp, level, color, message, options);
@@ -100,6 +100,11 @@ export class Console extends EventEmitter {
     public success(...args: unknown[]): void {
         const { cleanArgs, options } = this.extractOptions(args);
         this.write("success", "green", cleanArgs, options);
+    }
+
+    public info(...args: unknown[]): void {
+        const { cleanArgs, options } = this.extractOptions(args);
+        this.write("info", "cyan", cleanArgs, options);
     }
 
     private extractOptions(args: unknown[]): { cleanArgs: unknown[]; options: LogOptions } {
