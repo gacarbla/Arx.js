@@ -1,0 +1,35 @@
+{
+  "name": "@arx.js/discord",
+  "version": "1.0.0-alpha.2",
+  "description": "Native Discord client (Gateway + REST) with a transport-agnostic command framework and opt-in cache.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --clean && tsc --emitDeclarationOnly",
+    "typecheck": "tsc --noEmit"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@arx.js/core": "1.0.0-alpha.2",
+    "discord-api-types": "^0.38.54",
+    "ws": "^8.21.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "@types/ws": "^8.18.1"
+  }
+}
